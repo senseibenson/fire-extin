@@ -1,6 +1,4 @@
-sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
-    fire.destroy()
-})
+
 let fire: Sprite = null
 fire = sprites.create(img`
     . . . . . . . . . c c 8 . . . . 
@@ -44,4 +42,7 @@ controller.moveSprite(extin)
 game.onUpdateInterval(500, function () {
     fire.setPosition(160, Math.randomRange(0, 120))
     fire.setVelocity(-50, 0)
+})
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
+    fire.destroy()
 })
