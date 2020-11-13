@@ -1,5 +1,6 @@
 
 let fire: Sprite = null
+
 scene.setBackgroundColor(7)
 let extin = sprites.create(img`
     . . . . . . . . . . . . . . . . 
@@ -42,9 +43,8 @@ game.onUpdateInterval(500, function () {
     `, SpriteKind.Enemy)
     fire.setPosition(160, Math.randomRange(0, 120))
     fire.setVelocity(-50, 0)
-})
-
-sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (player, enemy) {
-    enemy.destroy()
+    sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
+    otherSprite.destroy()
     info.changeScoreBy(1)
+})
 })
