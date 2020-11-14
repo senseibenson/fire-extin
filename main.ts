@@ -1,15 +1,6 @@
 namespace SpriteKind {
     export const Enemy2 = SpriteKind.create()
 }
-sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (player2, otherSprite) {
-    info.changeLifeBy(-1)
-    otherSprite.destroy()
-})
-sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function (p, e) {
-    e.destroy()
-    p.destroy()
-    info.changeScoreBy(1)
-})
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     water = sprites.createProjectileFromSprite(img`
         . . . . . . . . . . . . . . . . 
@@ -29,7 +20,15 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
         `, extin, 70, 0)
-
+})
+sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function (p, e) {
+    e.destroy()
+    p.destroy()
+    info.changeScoreBy(1)
+})
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (player2, otherSprite) {
+    info.changeLifeBy(-1)
+    otherSprite.destroy()
 })
 let rock: Sprite = null
 let water: Sprite = null
@@ -57,28 +56,6 @@ extin = sprites.create(img`
 extin.setPosition(0, 0)
 controller.moveSprite(extin)
 info.setLife(3)
-game.onUpdateInterval(5000, function () {
-    rock = sprites.create(img`
-        . . . . . . . . . c c 8 . . . . 
-        . . . . . . 8 c c c f 8 c c . . 
-        . . . c c 8 8 f c a f f f c c . 
-        . . c c c f f f c a a f f c c c 
-        8 c c c f f f f c c a a c 8 c c 
-        c c c b f f f 8 a c c a a a c c 
-        c a a b b 8 a b c c c c c c c c 
-        a f c a a b b a c c c c c f f c 
-        a 8 f c a a c c a c a c f f f c 
-        c a 8 a a c c c c a a f f f 8 a 
-        . a c a a c f f a a b 8 f f c a 
-        . . c c b a f f f a b b c c 6 c 
-        . . . c b b a f f 6 6 a b 6 c . 
-        . . . c c b b b 6 6 a c c c c . 
-        . . . . c c a b b c c c . . . . 
-        . . . . . c c c c c c . . . . . 
-        `, SpriteKind.Enemy)
-    rock.setPosition(160, randint(0,120))
-    rock.setVelocity(-50, 0)
-})
 game.onUpdateInterval(1000, function () {
     rock = sprites.create(img`
         .............beebbbb............
@@ -115,5 +92,27 @@ game.onUpdateInterval(1000, function () {
         44ee...4e.......................
         `, SpriteKind.Projectile)
     rock.setPosition(160, Math.randomRange(0, 120))
+    rock.setVelocity(-50, 0)
+})
+game.onUpdateInterval(1000, function () {
+    rock = sprites.create(img`
+        . . . . . . . . . c c 8 . . . . 
+        . . . . . . 8 c c c f 8 c c . . 
+        . . . c c 8 8 f c a f f f c c . 
+        . . c c c f f f c a a f f c c c 
+        8 c c c f f f f c c a a c 8 c c 
+        c c c b f f f 8 a c c a a a c c 
+        c a a b b 8 a b c c c c c c c c 
+        a f c a a b b a c c c c c f f c 
+        a 8 f c a a c c a c a c f f f c 
+        c a 8 a a c c c c a a f f f 8 a 
+        . a c a a c f f a a b 8 f f c a 
+        . . c c b a f f f a b b c c 6 c 
+        . . . c b b a f f 6 6 a b 6 c . 
+        . . . c c b b b 6 6 a c c c c . 
+        . . . . c c a b b c c c . . . . 
+        . . . . . c c c c c c . . . . . 
+        `, SpriteKind.Enemy)
+    rock.setPosition(160, randint(0, 120))
     rock.setVelocity(-50, 0)
 })
